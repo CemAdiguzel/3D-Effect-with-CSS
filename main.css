@@ -1,0 +1,99 @@
+:root {
+  --animationTime: 1000ms;
+  --background: #8c104440;
+
+  --rotation: 40deg;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  background-color: #8c1044;
+
+  /* You need to add perspective to the parent component of whhere you want to add.
+   We add this property to conver to rotation on sort of z axis. 
+   So that the img doesnt squesh from top to bottom, and sort of rotate in the z axis. */
+  perspective: 1000px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.pikachu {
+  width: 500px;
+  aspect-ratio: 11/13;
+  position: relative;
+  transform-style: preserve-3d;
+  background-color: var(--background);
+
+  /* We need to add this line of property to complete the rotation in 700ms */
+  transition: rotate var(--animationTime) ease;
+}
+
+.pikachu:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background-image: radial-gradient(circle, transparent 200px, #8c104480);
+  opacity: 0;
+  transition: opacity var(--animationTime);
+}
+
+.pikachu::after {
+  content: "";
+  position: absolute;
+  inset: 80% 1.5rem 1.5rem;
+  translate: 0;
+  transform: translateZ(-100px);
+  background: var(--background);
+  filter: blur(1rem);
+  z-index: 1;
+  transition: rotate var(--animationTime), translate var(--animationTime);
+}
+
+.pikachu:hover {
+  rotate: x var(--rotation);
+}
+.pikachu:hover::before {
+  opacity: 1;
+}
+
+.pikachu:hover::after {
+  rotate: x calc(var(--rotation) * -1);
+  translate: 0 60px;
+}
+
+.pi-back {
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  z-index: 5;
+  transition: opacity var(--animationTime);
+}
+
+.pikachu:hover .pi-back {
+  opacity: 0.4;
+}
+
+.pi-front {
+  position: absolute;
+  transform-origin: bottom;
+  bottom: 0;
+  left: 25%;
+  opacity: 0;
+  transition: var(--animationTime);
+  z-index: 150;
+}
+
+.pikachu:hover .pi-front {
+  opacity: 1;
+  transform: translateY(-2rem) translateZ(-30px);
+  rotate: x calc(var(--rotation) * -1);
+}
