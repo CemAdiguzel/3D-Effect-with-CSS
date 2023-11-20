@@ -3,7 +3,7 @@
 In this code, we kinda create a 3D effect with only CSS.
 
 We have 2 files.
- - main.html,
+ - index.html,
  - main.css.
 
 In main.html, we only call our classes and the images of the Pikachu (Yes he is the cutest, I know).
